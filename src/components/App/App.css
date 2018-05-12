@@ -3,3 +3,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+#map {
+  width: 700px;
+  height: 450px;
+}
