@@ -4,7 +4,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-#map {
-  width: 700px;
-  height: 450px;
+.vue-js-switch#changed-font {
+  font-size: 20px;
+  margin-left: 30px;
 }
