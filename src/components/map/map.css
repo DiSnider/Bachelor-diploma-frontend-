@@ -1,8 +1,12 @@
 #map {
     width: 700px;
     height: 450px;
-    float: left;
+    /* float: left; */
   }
+
+.map-container {
+  float: left;
+}
 
   .v--modal-overlay {
     background: transparent;

@@ -37,11 +37,10 @@ export default {
                 this.technicalObjectMarkers.push(marker);
 
                 this.$parent.$emit('technicalObjects_added', {
-                    position: {
-                        lat: location.lat(),
-                        lng: location.lng()
-                    },
-                    label
+                    number: parseInt(label),
+                    lat: location.lat(),
+                    lng: location.lng(),
+                    intensity: 0
                 });
     
                 var self = this;
@@ -53,11 +52,9 @@ export default {
                 });
                 google.maps.event.addListener(marker, 'dragend', function() {
                     self.$parent.$emit('technicalObjects_dragged', {
-                        label: marker.label,
-                        position: {
-                            lat: marker.getPosition().lat(),
-                            lng: marker.getPosition().lng()
-                        }
+                        number: parseInt(label),
+                        lat: marker.getPosition().lat(),
+                        lng: marker.getPosition().lng()
                     });
                 });
             }
@@ -78,11 +75,9 @@ export default {
                 this.repairShopMarkers.push(marker);
 
                 this.$parent.$emit('repairShops_added', {
-                    position: {
-                        lat: location.lat(),
-                        lng: location.lng()
-                    },
-                    label
+                    number: parseInt(label),
+                    lat: location.lat(),
+                    lng: location.lng()
                 });
     
                 var self = this;
@@ -94,11 +89,9 @@ export default {
                 });
                 google.maps.event.addListener(marker, 'dragend', function() {
                     self.$parent.$emit('repairShops_dragged', {
-                        label: marker.label,
-                        position: {
-                            lat: marker.getPosition().lat(),
-                            lng: marker.getPosition().lng()
-                        }
+                        number: parseInt(label),
+                        lat: marker.getPosition().lat(),
+                        lng: marker.getPosition().lng()
                     });
                 });
             }

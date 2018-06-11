@@ -1,4 +1,5 @@
 import Map from './../map/map.vue'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 Array.prototype.removeIf = function(callback) {
   var i = this.length;
@@ -19,7 +20,37 @@ export default {
         isRepairShops: false,
 
         technicalObjects: [],
-        repairShops: []
+        repairShops: [],
+
+        technicalObjectsColumns: ['number', 'lat', 'lng', 'intensity'],
+        technicalObjectsOptions: {
+          filterable: false,
+          pagination: false,
+          texts: {
+            count:''
+          }
+        },
+        repairShopsColumns: ['number', 'lat', 'lng'],
+        repairShopsOptions: {
+          filterable: false,
+          pagination: false,
+          texts: {
+            count:''
+          }
+        }
+      }
+    },
+    methods: {
+      changeIntensity(event, number) {
+        var index = this.technicalObjects.findIndex(function(element){
+          return element.number == number
+        });
+
+        if (index < 0) {
+          console.error("changing intensities failed")
+        }
+
+        this.technicalObjects[index].intensity = parseFloat(event.currentTarget.value)
       }
     },
     mounted() {
@@ -29,18 +60,19 @@ export default {
 
       this.$on('technicalObjects_dragged', function(object) {
         var index = this.technicalObjects.findIndex(function(element){
-          return element.label == object.label
+          return element.number == object.number
         });
         if (index < 0) {
           console.error("dragging event handling failed")
         }
         else {
+          object.intensity = this.technicalObjects[index].intensity
           this.technicalObjects.splice(index, 1, object)
         }
       })
 
-      this.$on('technicalObjects_removed', function(label) {
-        this.technicalObjects.removeIf((item, index) => item.label == label);
+      this.$on('technicalObjects_removed', function(number) {
+        this.technicalObjects.removeIf((item, index) => item.number == number)
       })
 
 
@@ -51,7 +83,7 @@ export default {
 
       this.$on('repairShops_dragged', function(object) {
         var index = this.repairShops.findIndex(function(element){
-          return element.label == object.label
+          return element.number == object.number
         });
         if (index < 0) {
           console.error("dragging event handling failed")
@@ -61,8 +93,8 @@ export default {
         }
       })
 
-      this.$on('repairShops_removed', function(label) {
-        this.repairShops.removeIf((item, index) => item.label == label);
+      this.$on('repairShops_removed', function(number) {
+        this.repairShops.removeIf((item, index) => item.number == number)
       })
     }
 }
