@@ -8,3 +8,11 @@
   font-size: 20px;
   margin-left: 30px;
 }
+
+.intensities-table {
+  clear: both;
+}
+
+.intensities-table th {
+  text-align: center;
+}

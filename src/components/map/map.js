@@ -1,19 +1,7 @@
-Array.prototype.removeIf = function(callback) {
-    var i = this.length;
-    while (i--) {
-        if (callback(this[i], i)) {
-            this.splice(i, 1);
-        }
-    }
-};
-
 export default {
     data () {
       return {
-        technicalObjects: [],
         technicalObjectMarkers: [],
-
-        repairShops: [],
         repairShopMarkers: []
       }
     },
@@ -22,7 +10,7 @@ export default {
     },
     methods: {
         initMap() {
-            var myLatLng = {lat: 50.45466, lng: 30.5238};
+            var myLatLng = { lat: 50.45466, lng: 30.5238 };
           
             var map = new google.maps.Map(document.getElementById('map'), {
               zoom: 11,
@@ -38,7 +26,7 @@ export default {
         },
         addMarker(location, map) {
             if (!this.isRepairShops){ //Items
-                var label = (this.technicalObjects.length + 1).toString();
+                var label = (this.technicalObjectMarkers.length + 1).toString();
             
                 var marker = new google.maps.Marker({
                   position: location,
@@ -48,21 +36,33 @@ export default {
                 });
                 this.technicalObjectMarkers.push(marker);
 
-                this.technicalObjects.push({
-                    location,
+                this.$parent.$emit('technicalObjects_added', {
+                    position: {
+                        lat: location.lat(),
+                        lng: location.lng()
+                    },
                     label
                 });
     
                 var self = this;
                 google.maps.event.addListener(marker, 'rightclick', function(event) {
                     marker.setMap(null);
-                    self.technicalObjects.removeIf((item, index) => item.label == marker.label);
+                    self.$parent.$emit('technicalObjects_removed', marker.label);
                     self.technicalObjectMarkers.removeIf((item, index) => item.label == marker.label);
                     self.refreshLabels(self.technicalObjectMarkers);
                 });
+                google.maps.event.addListener(marker, 'dragend', function() {
+                    self.$parent.$emit('technicalObjects_dragged', {
+                        label: marker.label,
+                        position: {
+                            lat: marker.getPosition().lat(),
+                            lng: marker.getPosition().lng()
+                        }
+                    });
+                });
             }
             else {
-                var label = (this.repairShops.length + 1).toString();
+                var label = (this.repairShopMarkers.length + 1).toString();
             
                 var marker = new google.maps.Marker({
                   position: location,
@@ -77,17 +77,29 @@ export default {
                 });
                 this.repairShopMarkers.push(marker);
 
-                this.repairShops.push({
-                    location,
+                this.$parent.$emit('repairShops_added', {
+                    position: {
+                        lat: location.lat(),
+                        lng: location.lng()
+                    },
                     label
                 });
     
                 var self = this;
                 google.maps.event.addListener(marker, 'rightclick', function(event) {
                     marker.setMap(null);
-                    self.repairShops.removeIf((item, index) => item.label == marker.label);
+                    self.$parent.$emit('repairShops_removed', marker.label);
                     self.repairShopMarkers.removeIf((item, index) => item.label == marker.label);
                     self.refreshLabels(self.repairShopMarkers);
+                });
+                google.maps.event.addListener(marker, 'dragend', function() {
+                    self.$parent.$emit('repairShops_dragged', {
+                        label: marker.label,
+                        position: {
+                            lat: marker.getPosition().lat(),
+                            lng: marker.getPosition().lng()
+                        }
+                    });
                 });
             }
         },
