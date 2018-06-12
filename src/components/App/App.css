@@ -7,16 +7,34 @@
 .vue-js-switch#changed-font {
   font-size: 20px;
   margin-top: 30px;
-  margin-left: 30px;
+  margin-left: 100px;
+}
+
+.paramethers-wrapper {
+  border: 1px solid black;
+  width: 330px;
+  margin-top: 30px;
+  margin-left: 10px;
+  padding: 10px;
+  float: left;
+}
+
+.paramethers-wrapper label {
+  width: 230px;
+}
+
+.paramethers-wrapper input[type='number'] {
+  width: 70px;
 }
 
 .start-simulation {
-  margin-top: 20px;
-  margin-left: 40px;
+  position: relative;
+  top: 15px;
+  left: 98px;
 }
 
 .my-table {
-  margin-right: 20px;
+  margin-right: 40px;
   width: 600px;
   float: right;
   /* margin-top: 32px; */

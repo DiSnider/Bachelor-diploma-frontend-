@@ -4,13 +4,32 @@
     <!-- <modals-container/> -->
     <div class="map-container">
       <Map :is-repair-shops="isRepairShops"></Map>
-      <toggle-button id="changed-font" v-model="isRepairShops" 
-               :color="{checked: '#4169E1', unchecked: '#228B22'}"
-               :width="165"
-               :height="30"
-               :labels="{checked: 'Repair shops', unchecked: 'Objects'}" />
-      <button class="btn btn-lg btn-success start-simulation">Start simulation</button>
-    </div>
+
+      <div class="paramethers-wrapper">
+        <div>
+          <label for="repairDuration">Repair duration (in hours):</label>
+          <input type="number" min="0" step="1" value="0" v-model="repairDuration" id="repairDuration" />
+        </div>
+        <div>
+          <label for="machineSpeed">Machine speed (km/h):</label>
+          <input type="number" min="0" step="1" value="0" v-model="machineSpeed" id="machineSpeed" />
+        </div>
+        <div>
+          <label for="permissibleIdleTime">Permissible idle time (in hours):</label>
+          <input type="number" min="0" step="1" value="0" v-model="permissibleIdleTime" id="permissibleIdleTime" />
+        </div>
+      </div>
+
+      <div class="buttons-wrapper">
+        <toggle-button id="changed-font" v-model="isRepairShops" 
+                 :color="{checked: '#4169E1', unchecked: '#228B22'}"
+                 :width="165"
+                 :height="30"
+                 :labels="{checked: 'Repair shops', unchecked: 'Objects'}" />
+  
+        <button class="btn btn-lg btn-success start-simulation" v-on:click="sendRequestToSimulation">Start simulation</button>
+      </div>
+    </div>    
 
     <v-client-table class="my-table" :data="technicalObjects" :columns="technicalObjectsColumns" :options="technicalObjectsOptions">
       <caption slot="afterLimit">
