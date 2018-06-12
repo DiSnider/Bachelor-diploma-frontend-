@@ -51,6 +51,11 @@ export default {
         }
 
         this.technicalObjects[index].intensity = parseFloat(event.currentTarget.value)
+      },
+      refreshNumbers(arr) {
+        for (var i = 0; i < arr.length; i++) {
+            arr[i].number = i + 1
+        }
       }
     },
     mounted() {
@@ -73,6 +78,7 @@ export default {
 
       this.$on('technicalObjects_removed', function(number) {
         this.technicalObjects.removeIf((item, index) => item.number == number)
+        this.refreshNumbers(this.technicalObjects)
       })
 
 
@@ -95,6 +101,7 @@ export default {
 
       this.$on('repairShops_removed', function(number) {
         this.repairShops.removeIf((item, index) => item.number == number)
+        this.refreshNumbers(this.repairShops)
       })
     }
 }

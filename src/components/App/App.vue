@@ -8,7 +8,8 @@
                :color="{checked: '#4169E1', unchecked: '#228B22'}"
                :width="165"
                :height="30"
-               :labels="{checked: 'Repair shops', unchecked: 'Items'}"/>
+               :labels="{checked: 'Repair shops', unchecked: 'Objects'}" />
+      <button class="btn btn-lg btn-success start-simulation">Start simulation</button>
     </div>
 
     <v-client-table class="my-table" :data="technicalObjects" :columns="technicalObjectsColumns" :options="technicalObjectsOptions">
