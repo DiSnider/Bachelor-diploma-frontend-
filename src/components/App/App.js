@@ -1,5 +1,6 @@
 import Map from './../map/map.vue'
 import axiosApi from './../../axios-api'
+import { eventHub } from './../../eventHub'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 Array.prototype.removeIf = function(callback) {
@@ -42,7 +43,9 @@ export default {
           texts: {
             count:''
           }
-        }
+        },
+
+        spinnerVisible: false
       }
     },
     methods: {
@@ -84,8 +87,13 @@ export default {
         }
 
         axiosApi.post('Simulation/SimulateAndGetResult', data)
-          .then(function(response){
+          .then((response) => {
             console.log(response)
+            alert('Success!')
+          })
+          .catch((error) => {
+            console.log(error)
+            alert('Error!')
           })
       },
 
@@ -93,6 +101,15 @@ export default {
         for (var i = 0; i < arr.length; i++) {
             arr[i].number = i + 1
         }
+      },
+
+      showSpinner() {
+        console.log('show spinner');
+        this.spinnerVisible = true;
+      },
+      hideSpinner() {
+        console.log('hide spinner');
+        this.spinnerVisible = false;
       }
     },
     mounted() {
@@ -140,5 +157,17 @@ export default {
         this.repairShops.removeIf((item, index) => item.number == number)
         this.refreshNumbers(this.repairShops)
       })
+    },
+    created() {
+      eventHub.$on('before-request', this.showSpinner);
+      eventHub.$on('request-error',  this.hideSpinner);
+      eventHub.$on('after-response', this.hideSpinner);
+      eventHub.$on('response-error', this.hideSpinner);
+    },
+    beforeDestroy() {
+      eventHub.$off('before-request', this.showSpinner);
+      eventHub.$off('request-error',  this.hideSpinner);
+      eventHub.$off('after-response', this.hideSpinner);
+      eventHub.$off('response-error', this.hideSpinner);
     }
 }
