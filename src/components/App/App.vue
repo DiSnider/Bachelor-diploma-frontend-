@@ -42,7 +42,7 @@
         <h3>Technical objects</h3>
       </caption>
 
-      <div slot="intensity" slot-scope="props">
+      <div slot="intensity (per day)" slot-scope="props">
         <input type="number" min="0" step="0.01" value="0.000" @change="changeIntensity($event, props.row.number)" />
       </div>
     </v-client-table>

@@ -28,7 +28,7 @@ export default {
         machineSpeed: 0,
         permissibleIdleTime: 0,
 
-        technicalObjectsColumns: ['number', 'lat', 'lng', 'intensity'],
+        technicalObjectsColumns: ['number', 'lat', 'lng', 'intensity (per day)'],
         technicalObjectsOptions: {
           filterable: false,
           pagination: false,

@@ -51,6 +51,10 @@
   /* margin-top: 32px; */
 }
 
+.my-table th span {
+  font-size: 0.94rem;
+}
+
 .my-table caption {
   margin: 0 auto;
   color: black;
