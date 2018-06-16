@@ -23,6 +23,10 @@
           <label for="permissibleIdleTime">Permissible idle time (in hours):</label>
           <input type="number" min="0" step="1" value="0" v-model="permissibleIdleTime" id="permissibleIdleTime" />
         </div>
+        <div>
+          <label for="permissibleConfirmationDelayTime">Permissible confirmation delay time (in hours):</label>
+          <input type="number" min="0" step="1" value="0" v-model="permissibleConfirmationDelayTime" id="permissibleConfirmationDelayTime" />
+        </div>
       </div>
 
       <div class="buttons-wrapper">

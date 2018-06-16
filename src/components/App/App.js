@@ -27,6 +27,7 @@ export default {
         repairDuration: 0,
         machineSpeed: 0,
         permissibleIdleTime: 0,
+        permissibleConfirmationDelayTime: 0,
 
         technicalObjectsColumns: ['number', 'lat', 'lng', 'intensity (per day)'],
         technicalObjectsOptions: {
@@ -84,7 +85,8 @@ export default {
           }),
           repairDuration: this.repairDuration,
           machineSpeed: this.machineSpeed,
-          permissibleIdleTime: this.permissibleIdleTime
+          permissibleIdleTime: this.permissibleIdleTime,
+          permissibleConfirmationDelayTime: this.permissibleConfirmationDelayTime
         }
 
         axiosApi.post('Simulation/SimulateAndGetResult', data)
@@ -102,14 +104,15 @@ export default {
                   <hr width="2" />
                   <h2 style="text-align: center">Optimal repair shops counts for repair stations:</h2>
                   ${repairStationsSection}
-                  <p><b>Given mean idle time: <span style="color: rgb(34, 139, 34)">${response.data.MeanIdleTime} hours</span></b></p>
+                  <p><b>Result mean idle time: <span style="color: rgb(34, 139, 34)">${response.data.MeanIdleTime} hours</span></b></p>
+                  <p><b>Result mean confirmation delay time: <span style="color: rgb(34, 139, 34)">${response.data.MeanConfirmationDelayTime} hours</span></b></p>
                 </div>
               `,
               props: []
             }, {
               //text: 'This text is passed as a property'
             }, {
-              width: 700,
+              width: 800,
               height: 'auto'
             })
           })
