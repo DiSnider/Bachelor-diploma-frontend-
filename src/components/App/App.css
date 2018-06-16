@@ -7,7 +7,11 @@
 .vue-js-switch#changed-font {
   font-size: 20px;
   margin-top: 30px;
-  margin-left: 100px;
+  margin-left: 95px;
+}
+
+.v--modal-overlay {
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .paramethers-wrapper {
@@ -31,6 +35,13 @@
   position: relative;
   top: 15px;
   left: 98px;
+  float: left;
+}
+
+.loading-spinner {
+  position: relative;
+  left: 302px;
+  top: 18px;
 }
 
 .my-table {

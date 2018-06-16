@@ -2,9 +2,11 @@
   <div id="app">
     <!-- <iframe width="700" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=%D0%9A%D0%B8%D1%97%D0%B2&key=AIzaSyD-D-zOQwtx1-ccQlkBnZ5seI-q9AtNrTQ"></iframe> -->
     
-    <!--<vue-simple-spinner></vue-simple-spinner>-->
-    
-    <!-- <modals-container/> -->
+    <modal name="hello-world" v-on:before-open="beforeResultModalOpen">
+      hello, world!
+    </modal>
+
+    <modals-container />
     <div class="map-container">
       <Map :is-repair-shops="isRepairShops"></Map>
 
@@ -26,11 +28,12 @@
       <div class="buttons-wrapper">
         <toggle-button id="changed-font" v-model="isRepairShops" 
                  :color="{checked: '#4169E1', unchecked: '#228B22'}"
-                 :width="165"
+                 :width="180"
                  :height="30"
-                 :labels="{checked: 'Repair shops', unchecked: 'Objects'}" />
+                 :labels="{checked: 'Repair stations', unchecked: 'Objects'}" />
   
         <button class="btn btn-lg btn-success start-simulation" v-on:click="sendRequestToSimulation">Start simulation</button>
+        <vue-simple-spinner v-if="spinnerVisible" class="loading-spinner" size="40" :line-size="5"></vue-simple-spinner>
       </div>
     </div>    
 

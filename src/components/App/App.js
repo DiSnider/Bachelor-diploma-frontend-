@@ -45,7 +45,8 @@ export default {
           }
         },
 
-        spinnerVisible: false
+        spinnerVisible: false,
+        spinnerLineSize: 5
       }
     },
     methods: {
@@ -88,8 +89,29 @@ export default {
 
         axiosApi.post('Simulation/SimulateAndGetResult', data)
           .then((response) => {
-            console.log(response)
-            alert('Success!')
+            let repairStationsSection = ''
+            for (let i = 0; i < response.data.OptimalRepairShopsCountsByStations.length; i++) {
+              let shopsCount = response.data.OptimalRepairShopsCountsByStations[i]
+              repairStationsSection += `<p>Repair station #${i+1}: ${shopsCount} shop${shopsCount !== 1 ? 's' : ''}</p>`
+            }
+            
+            this.$modal.show({
+              template: `
+                <div>
+                  <h1 style="text-align: center">SimulationProcessResult</h1>
+                  <hr width="2" />
+                  <h2 style="text-align: center">Optimal repair shops counts for repair stations:</h2>
+                  ${repairStationsSection}
+                  <p><b>Given mean idle time: <span style="color: rgb(34, 139, 34)">${response.data.MeanIdleTime} hours</span></b></p>
+                </div>
+              `,
+              props: []
+            }, {
+              //text: 'This text is passed as a property'
+            }, {
+              width: 700,
+              height: 'auto'
+            })
           })
           .catch((error) => {
             console.log(error)
@@ -110,6 +132,10 @@ export default {
       hideSpinner() {
         console.log('hide spinner');
         this.spinnerVisible = false;
+      },
+
+      beforeResultModalOpen(event) {
+        console.log(event.params.foo)
       }
     },
     mounted() {
