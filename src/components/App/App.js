@@ -24,17 +24,18 @@ export default {
         technicalObjects: [],
         repairShops: [],
 
-        repairDuration: 0,
-        machineSpeed: 0,
-        permissibleIdleTime: 0,
-        permissibleConfirmationDelayTime: 0,
+        repairDuration: 2,
+        machineSpeed: 50,
+        permissibleIdleTime: 2.4,
+        permissibleConfirmationDelayTime: 1.5,
 
         technicalObjectsColumns: ['number', 'lat', 'lng', 'intensity (per day)'],
         technicalObjectsOptions: {
           filterable: false,
           pagination: false,
           texts: {
-            count:''
+            count:'',
+            'intensity (per day)': 'Інтенсивність (за день)'
           }
         },
         repairShopsColumns: ['number', 'lat', 'lng'],
@@ -67,6 +68,11 @@ export default {
         //simple validation
         if (this.technicalObjects.length == 0 || this.repairShops.length == 0) {
           alert('Please set objects and/or repair bases')
+          return
+        }
+        if (this.permissibleIdleTime <= this.repairDuration){
+          alert('Permissible idle time cannot be less than repair duration')
+          return
         }
 
         var data = {
@@ -91,30 +97,36 @@ export default {
 
         axiosApi.post('Simulation/SimulateAndGetResult', data)
           .then((response) => {
-            let repairStationsSection = ''
-            for (let i = 0; i < response.data.OptimalRepairShopsCountsByStations.length; i++) {
-              let shopsCount = response.data.OptimalRepairShopsCountsByStations[i]
-              repairStationsSection += `<p>Repair station #${i+1}: ${shopsCount} shop${shopsCount !== 1 ? 's' : ''}</p>`
-            }
             
-            this.$modal.show({
-              template: `
-                <div>
-                  <h1 style="text-align: center">SimulationProcessResult</h1>
-                  <hr width="2" />
-                  <h2 style="text-align: center">Optimal repair shops counts for repair stations:</h2>
-                  ${repairStationsSection}
-                  <p><b>Result mean idle time: <span style="color: rgb(34, 139, 34)">${response.data.MeanIdleTime} hours</span></b></p>
-                  <p><b>Result mean confirmation delay time: <span style="color: rgb(34, 139, 34)">${response.data.MeanConfirmationDelayTime} hours</span></b></p>
-                </div>
-              `,
-              props: []
-            }, {
-              //text: 'This text is passed as a property'
-            }, {
-              width: 800,
-              height: 'auto'
-            })
+            if (response.status == 202) {
+              alert(response.data)
+              return
+            }
+            else if (response.status == 200) {
+              let repairStationsSection = ''
+              for (let i = 0; i < response.data.OptimalRepairShopsCountsByStations.length; i++) {
+                let shopsCount = response.data.OptimalRepairShopsCountsByStations[i]
+                repairStationsSection += `<p>Ремонтна станція #${i+1}: ${shopsCount} машин${shopsCount === 1 ? 'а' : ''}</p>`
+              }
+
+              this.$modal.show({
+                template: `
+                  <div>
+                    <h1 style="text-align: center">Результат моделювання</h1>
+                    <h2 style="text-align: center">Оптимальні кількості машин для кожної ремонтної станції:</h2>
+                    ${repairStationsSection}
+                    <p><b>Отримана середня тривалість ремонту: <span style="color: rgb(34, 139, 34)">${response.data.MeanIdleTime} годин</span></b></p>
+                    <p><b>Отриманий середній час підтвердження з бази: <span style="color: rgb(34, 139, 34)">${response.data.MeanConfirmationDelayTime} годин</span></b></p>
+                  </div>
+                `,
+                props: []
+              }, {
+                //text: 'This text is passed as a property'
+              }, {
+                width: 800,
+                height: 'auto'
+              })
+            }       
           })
           .catch((error) => {
             console.log(error)

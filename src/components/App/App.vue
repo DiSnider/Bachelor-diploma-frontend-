@@ -12,19 +12,19 @@
 
       <div class="paramethers-wrapper">
         <div>
-          <label for="repairDuration">Repair duration (in hours):</label>
+          <label for="repairDuration">Тривалість ремонту (год):</label>
           <input type="number" min="0" step="1" value="0" v-model="repairDuration" id="repairDuration" />
         </div>
         <div>
-          <label for="machineSpeed">Machine speed (km/h):</label>
+          <label for="machineSpeed">Швидкість машин (км/год):</label>
           <input type="number" min="0" step="1" value="0" v-model="machineSpeed" id="machineSpeed" />
         </div>
         <div>
-          <label for="permissibleIdleTime">Permissible idle time (in hours):</label>
+          <label for="permissibleIdleTime">Допустимий час ремонту (год):</label>
           <input type="number" min="0" step="1" value="0" v-model="permissibleIdleTime" id="permissibleIdleTime" />
         </div>
         <div>
-          <label for="permissibleConfirmationDelayTime">Permissible confirmation delay time (in hours):</label>
+          <label for="permissibleConfirmationDelayTime">Допустимий час підтвердження з бази (год):</label>
           <input type="number" min="0" step="1" value="0" v-model="permissibleConfirmationDelayTime" id="permissibleConfirmationDelayTime" />
         </div>
       </div>
@@ -34,16 +34,16 @@
                  :color="{checked: '#4169E1', unchecked: '#228B22'}"
                  :width="180"
                  :height="30"
-                 :labels="{checked: 'Repair stations', unchecked: 'Objects'}" />
+                 :labels="{checked: 'Ремонтні станції', unchecked: `Об'єкти`}" />
   
-        <button class="btn btn-lg btn-success start-simulation" v-on:click="sendRequestToSimulation">Start simulation</button>
+        <button class="btn btn-lg btn-success start-simulation" v-on:click="sendRequestToSimulation">Моделювати</button>
         <vue-simple-spinner v-if="spinnerVisible" class="loading-spinner" size="40" :line-size="5"></vue-simple-spinner>
       </div>
     </div>    
 
     <v-client-table class="my-table" :data="technicalObjects" :columns="technicalObjectsColumns" :options="technicalObjectsOptions">
       <caption slot="afterLimit">
-        <h3>Technical objects</h3>
+        <h3>Технічні об'єкти</h3>
       </caption>
 
       <div slot="intensity (per day)" slot-scope="props">
@@ -53,7 +53,7 @@
 
     <v-client-table class="my-table" :data="repairShops" :columns="repairShopsColumns" :options="repairShopsOptions">
       <caption slot="afterLimit">
-        <h3>Repair shops</h3>
+        <h3>Ремонтні майстерні</h3>
       </caption>
     </v-client-table>
   </div>
