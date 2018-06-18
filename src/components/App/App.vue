@@ -20,7 +20,7 @@
           <input type="number" min="0" step="1" value="0" v-model="machineSpeed" id="machineSpeed" />
         </div>
         <div>
-          <label for="permissibleIdleTime">Допустимий час ремонту (год):</label>
+          <label for="permissibleIdleTime">Допустима тривалість ремонту (год):</label>
           <input type="number" min="0" step="1" value="0" v-model="permissibleIdleTime" id="permissibleIdleTime" />
         </div>
         <div>

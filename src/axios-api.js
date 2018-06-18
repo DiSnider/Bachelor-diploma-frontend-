@@ -4,6 +4,7 @@ import { eventHub } from './eventHub'
 function createAxios() {
     const axios = Axios.create({
       baseURL: 'http://localhost:53508/'
+      //baseURL: 'http://dmytroshnayder-diploma-api.azurewebsites.net/'
     })
     axios.interceptors.request.use(
         conf => {
