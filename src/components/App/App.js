@@ -67,11 +67,11 @@ export default {
       sendRequestToSimulation() {
         //simple validation
         if (this.technicalObjects.length == 0 || this.repairShops.length == 0) {
-          alert('Please set objects and/or repair bases')
+          alert(`Будь ласка, задайте технічні об'єкти і/або ремонтні станції`)
           return
         }
         if (this.permissibleIdleTime <= this.repairDuration){
-          alert('Permissible idle time cannot be less than repair duration')
+          alert('Допустимий середній час обслуговування повинен перевищувати тривалість ремонту')
           return
         }
 

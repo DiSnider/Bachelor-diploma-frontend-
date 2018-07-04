@@ -17,15 +17,15 @@
 
 .paramethers-wrapper {
   border: 1px solid black;
-  width: 330px;
-  margin-top: 2px;
+  width: 385x;
+  margin-top: 3px;
   margin-left: 10px;
-  padding: 10px;
+  padding: 10px 10px 5px;
   float: left;
 }
 
 .paramethers-wrapper label {
-  width: 230px;
+  width: 275px;
 }
 
 .paramethers-wrapper input[type='number'] {
@@ -41,8 +41,8 @@
 
 .loading-spinner {
   position: relative;
-  left: 302px;
-  top: 18px;
+  left: 310px;
+  top: 20px;
 }
 
 .my-table {
